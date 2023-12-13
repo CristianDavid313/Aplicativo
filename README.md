@@ -7,7 +7,7 @@ Este es un proyecto desarrollado en Python, la finalidad del aplicativo es facil
 Para instalar este proyecto y las librerías necesarias, sigue estos pasos:
 
 1. Clona este repositorio en tu máquina local.
-2. Asegúrate de tener Python ** 3.12.0 ** o superior instalado en tu sistema.
+2. Asegúrate de tener Python `3.12.0` o superior instalado en tu sistema.
 3. Crea un entorno virtual utilizando `venv`.
 4. Activa el entorno virtual.
 5. Ejecuta el comando `pip install -r requirements.txt` para instalar las librerías necesarias.
