@@ -1,4 +1,4 @@
-# Mi Proyecto Python
+# SISTEMA DE GENERACIÓN DE REPORTES Y GRÁFICOS DE LAS ESTACIONES
 
 Este es un proyecto desarrollado en Python, la finalidad del aplicativo es facilitar la gestión de la información de las estaciones de la red de monitoreo dentro del Sistema de Información de Instrumentación de Geoamenazas (SIIGeo).
 
