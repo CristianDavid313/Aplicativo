@@ -92,15 +92,15 @@ class Principal:
         with st.expander('Filtros'):
             # Filtro y grafico por el estado de las estaciones
             codigo_uno = 0
-            resultado, modificado_uno = filtros(datos, codigo_uno)
+            resultado_uno, modificado_uno = filtros(datos, codigo_uno)
 
             # Filtro y grafico por la red de monitoreo de las estaciones
             codigo_dos = 1
-            resultado, modificado_dos = filtros(resultado, codigo_dos)
+            resultado_dos, modificado_dos = filtros(resultado_uno, codigo_dos)
 
             # Filtro y grafico por el sistema de energia de las estaciones
             codigo_tres = 2
-            resultado, modificado_tres = filtros(resultado, codigo_tres)
+            resultado_tres, modificado_tres = filtros(resultado_dos, codigo_tres)
             
             col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -109,13 +109,13 @@ class Principal:
                 boton = st.button('Aplicar Filtros', use_container_width=True)
         
         if boton:
-            grafico(resultado, modificado_uno, codigo_uno)
-            grafico(resultado, modificado_dos, codigo_dos)
-            grafico(resultado, modificado_tres, codigo_tres)
+            grafico(resultado_uno, modificado_uno, codigo_uno)
+            grafico(resultado_dos, modificado_dos, codigo_dos)
+            grafico(resultado_tres, modificado_tres, codigo_tres)
 
-            st.dataframe(resultado, hide_index=True, use_container_width=True)
+            st.dataframe(resultado_tres, hide_index=True, use_container_width=True)
             ruta = 'Reporte_General_Filtrado.xlsx'
-            reporte(resultado, ruta)
+            reporte(resultado_tres, ruta)
     
     # Estaciones instaladas por año
     def seccion_dos(self):
