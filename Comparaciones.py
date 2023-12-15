@@ -59,30 +59,32 @@ def verificar_uno(df_uno):
 
         if len(opcion) == 0:
             respuesta = datos
+            nada = True
         else:
             respuesta = datos[datos['IDENTIFICADOR'].isin(opcion)]
+            nada = False
         
-        return respuesta
-    respuesta = eleccion(df_uno)
+        return respuesta, nada
+    respuesta_uno, nada = eleccion(df_uno)
 
     st.subheader('Agencia', help='Si no se selecciona ninguna agencia, el aplicativo tomará las estaciones que tengan como agencia "SERVICIO GEOLOGICO COLOMBIANO"')
-    def agencia(respuesta):
+    def agencia(respuesta_uno):
         opciones = st.multiselect(
             'Seleccione las agencias a verificar:',
-            options=respuesta['AGENCIA'].unique(),
+            options=respuesta_uno['AGENCIA'].unique(),
             default=['SERVICIO GEOLOGICO COLOMBIANO']
         )
 
         if len(opciones) == 0:
-            respuesta = respuesta
+            respuesta_dos = respuesta_uno
         else:
-            respuesta = respuesta[respuesta['AGENCIA'].isin(opciones)]
+            respuesta_dos = respuesta_uno[respuesta_uno['AGENCIA'].isin(opciones)]
         
-        return respuesta
-    respuesta = agencia(respuesta)
+        return respuesta_dos
+    respuesta_dos = agencia(respuesta_uno)
 
     # Identificador de errores y hallazgos
-    for row_index, row in respuesta.iterrows():
+    for row_index, row in respuesta_dos.iterrows():
         identificador = row['IDENTIFICADOR']
 
         # Error 1 "El estado de la estación es "Retirada", pero no tiene ninguna fecha de retiro."
@@ -120,11 +122,11 @@ def verificar_uno(df_uno):
                 else:
                     hallazgos[identificador] = 'Hallazgo 24'
 
-        for columna in respuesta.columns:
+        for columna in respuesta_dos.columns:
             if (row['ESTADO'] != 'PROXIMA A INSTALAR'):
                 if not pd.notnull(row[columna]):
                     # Asignar un número de hallazgo basado en la columna vacía
-                    numero_hallazgo = respuesta.columns.get_loc(columna) + 1
+                    numero_hallazgo = respuesta_dos.columns.get_loc(columna) + 1
                     
                     if (numero_hallazgo == 15) and (row['ESTADO'] != 'RETIRADA'):
                         pass
@@ -151,8 +153,13 @@ def verificar_uno(df_uno):
         how='outer',
         on='ESTACION'
     )
-    
-    if df_final.empty:
+
+    if nada is True:
+        for row_index, row in df_final.iterrows():
+            if row['ERRORES'] == 'Sin errores' and row['HALLAZGOS'] == 'Sin hallazgos':
+                df_final = df_final.drop(index=row_index)
+        st.dataframe(df_final, hide_index=True, use_container_width=True)
+    elif df_final.empty:
         st.info('No se encontro ningún error o hallazgo')
     else:
         st.dataframe(df_final, hide_index=True, use_container_width=True)
@@ -230,7 +237,6 @@ def verificar_dos(df_dos):
     def eleccion(datos):
         df_filtrado = datos
         df_filtrado = df_filtrado.sort_values(by=['FECHA INICIO'], ascending=False)
-        #df_filtrado = df_filtrado.drop_duplicates(subset=['ID ESTACION'])
         df_filtrado = df_filtrado.sort_values(by=['ID ESTACION'])
 
         opcion = st.multiselect(
@@ -240,11 +246,13 @@ def verificar_dos(df_dos):
 
         if len(opcion) == 0:
             respuesta = df_filtrado
+            nada = True
         else:
             respuesta = df_filtrado[df_filtrado['ID ESTACION'].isin(opcion)]
+            nada = False
         
-        return respuesta
-    respuesta = eleccion(df_dos)
+        return respuesta, nada
+    respuesta, nada = eleccion(df_dos)
 
     respuesta = pd.DataFrame(respuesta)
     for row_index, row in respuesta.iterrows():
@@ -307,7 +315,12 @@ def verificar_dos(df_dos):
         on='ESTACION'
     )
 
-    if df_final.empty:
+    if nada is True:
+        for row_index, row in df_final.iterrows():
+            if row['ERRORES'] == 'Sin errores' and row['HALLAZGOS'] == 'Sin hallazgos':
+                df_final = df_final.drop(index=row_index)
+        st.dataframe(df_final, hide_index=True, use_container_width=True)
+    elif df_final.empty:
         st.info('No se encontro ningún error o hallazgo')
     else:
         df_final = df_final.sort_values('ESTACION')
