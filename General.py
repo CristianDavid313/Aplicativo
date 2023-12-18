@@ -162,7 +162,8 @@ class Principal:
             opciones = st.multiselect(
                 'Seleccione las agencias de las estaciones:',
                 options = datos_filtrados['AGENCIA'].unique(),
-                key='uno'
+                key='uno',
+                default='SERVICIO GEOLOGICO COLOMBIANO'
             )
 
             if len(opciones) == 0:
@@ -246,7 +247,8 @@ class Principal:
             opciones = st.multiselect(
                 'Seleccione las agencias de las estaciones:',
                 options = datos_filtrados['AGENCIA'].unique(),
-                key='dos'
+                key='dos',
+                default='SERVICIO GEOLOGICO COLOMBIANO'
             )
 
             if len(opciones) == 0:
