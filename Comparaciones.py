@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 from Reporte import reporte
 
+# Funcion que se encarga de verificar los datos de las estaciones de la red de monitoreo
 def verificar_uno(df_uno):
     st.dataframe(df_uno, hide_index=True, use_container_width=True)
 
     st.divider()
 
     st.subheader('Codigos de error', help='Desplegable que sirve de guía para conocer que errores y hallazgos busca el aplicativo en el reporte.')
-
     with st.expander('Errores y hallazgos:'):
 
         st.subheader('Errores:')
@@ -66,6 +66,7 @@ def verificar_uno(df_uno):
         return respuesta, nada
     respuesta_uno, nada = eleccion(df_uno)
 
+    # Seleccion de la agencia a la que pertenecen las estaciones a verificar
     st.subheader('Agencia', help='Si no se selecciona ninguna agencia, el aplicativo tomará las estaciones que tengan como agencia "SERVICIO GEOLOGICO COLOMBIANO"')
     def agencia(respuesta_uno):
         opciones = st.multiselect(
@@ -185,6 +186,7 @@ def verificar_uno(df_uno):
     ruta = 'Verificador_General.xlsx'
     reporte(df_final, ruta)
 
+# Funcion que se encarga de verificar los datos de los instrumentos de las estaciones
 def verificar_dos(df_dos):
     df_dos['CODIGO LOCALIZACION'] = df_dos['CODIGO LOCALIZACION'].replace(
         {
@@ -347,6 +349,7 @@ def verificar_dos(df_dos):
     ruta = 'Verificador_Epocas_NSCL.xlsx'
     reporte(df_final, ruta)
 
+# Funcion que se encarga de verificar los documentos asociados a cada estacion
 def verificar_tres(df_tres):
     st.dataframe(df_tres, hide_index=True, use_container_width=True)
 
