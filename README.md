@@ -19,6 +19,7 @@ Para correr este proyecto:
 2. Ejecuta el comando `streamlit run 1_Reporte general de las estaciones.py`, el aplicativo generara una vista como esta:
    
 ![Captura](https://github.com/CristianDavid313/Aplicativo/assets/140470836/1e3963e2-e097-4c1c-8093-ac98640d6b0f)
+
 4. Se generaran 2 rutas, a la ruta `Local URL` solo se puede acceder desde el mismo dispositivo en el que se está ejecutando la aplicación. Por otro lado, a la ruta `Network URL` solo se puede acceder si el dispositivo está conectado a la misma red en la que se encuentra el dispositivo que está ejecutando la aplicación.
 
 ¡Disfruta de mi proyecto Python!
