@@ -10,7 +10,10 @@ st.set_page_config(
     page_title = 'Reporte general de las estaciones',
     page_icon = 'Imagenes/Logo.png',
     layout = 'wide',
-    initial_sidebar_state='expanded'
+    initial_sidebar_state='expanded',
+    menu_items={
+        'About': 'El sistema de generación de reportes y gráficos de las estaciones fue desarrollado por **Cristian David Vargas Avellaneda** con la colaboración del grupo de sismología y el grupo de sistemas. Este aplicativo tiene como objetivo ayudar a los usuarios a comprender las funcionalidades para la gestión de la información de las estaciones de la red de monitoreo dentro del Sistema de Información de Instrumentación de Geoamenazas (SIIGeo). Además, el aplicativo es capaz de generar gráficos y reportes basados en los filtros seleccionados por el usuario, también puede verificar si existen inconsistencias en los datos que están siendo evaluados. **Si encuentra un error la persona que quedara acargo del código sera Angel Daniel Agudelo (adagudelo@sgc.gov.co)**'
+    }
 )
 
 # Crea la carpeta en la que se guardaran todos los reportes que genere el aplicativo
